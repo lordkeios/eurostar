@@ -27,7 +27,7 @@ cudaError_t processRMSCuda(float* resultSet, float* data, int transactionSize, i
 {
 	cudaError_t cudaStatus;
 
-	const int blocks = 40;
+	const int blocks = 12;
 
 	while (transactionCount > 0) {
 		int transactions = (transactionCount > blocks ? blocks : transactionCount);

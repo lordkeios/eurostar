@@ -4,11 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <sstream>
+#include <string>
+#include <fstream>
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <mmsystem.h>
 
 #pragma comment(lib, "winmm")
+
 
 // CUDA/D3D10 kernel
 extern "C" cudaError_t addWithCuda(int *c, const int *a, const int *b, unsigned int size);
@@ -44,6 +49,8 @@ int main()
 	const int transactionSize = 256;
 	const int maxDataCount = 60 * 24 * 365;
 
+	printf("\n**** 1. SYSTEM STARTING ****\n");
+
 	tsdb.memSize = sizeof(float) * ( (1 + dataSize * transactionSize) * maxDataCount );
 
 	cudaError_t cudaStatus;
@@ -74,12 +81,29 @@ int main()
 
 	float allocTimeMs = tstop - tstart;
 
-	printf("alloc memory %d bytes took = %f ms\n", tsdb.memSize, allocTimeMs);
+	printf("alloc storage %d bytes took = %f ms\n", tsdb.memSize, allocTimeMs);
 
 	tstart = GetCurrentTime();
 
 	// data
+	printf("\n**** 2. READ DATA ****\n");
 	int samplesRead = 0;
+
+	{
+		std::ifstream infile("data.csv");
+		std::string line;
+		while (std::getline(infile, line))
+		{
+			std::istringstream iss(line);
+
+			float x, y, z;
+
+			iss >> x >> y >> z;
+
+			printf("%f, %f, %f\n", x, y, z);
+		}
+	}
+
 	for (int i = 0; i < maxDataCount; i++) {
 		int ptr = i * (1 + dataSize*transactionSize);
 		*(tsdb.h_data + ptr) = i;
@@ -106,7 +130,7 @@ int main()
 
 
 	// commit
-	printf("***********************************\n");
+	printf("\n**** 3. WRITE DATA TO DATABASE ****\n");
 
 	for (int test = 0; test < 10; test++) {
 		printf("**** data commit test %d ****\n", test);
@@ -125,9 +149,9 @@ int main()
 				fprintf(stderr, "commit failed!");
 				goto Error;
 			}
-
 			dataCommitted += dataSize*transactionSize;
 		}
+		cudaDeviceSynchronize();
 
 		cudaEventRecord(stop, 0);
 		cudaEventSynchronize(stop);
@@ -139,11 +163,11 @@ int main()
 	}
 
 	// query
-	printf("***********************************\n");
+	printf("\n**** 4. QUERY DATA FROM DATABASE ****\n");
 	int dataQueried = 0;
 
-	int query_t = 1000;
-	int query_count = 3;
+	int query_t = 0;
+	int query_count = 100;
 
 	tstart = GetCurrentTime();
 
@@ -173,7 +197,7 @@ int main()
 	}
 
 	// process
-	printf("***********************************\n");
+	printf("\n**** 5. PROCESS DATA ****\n");
 	for(int test = 0; test < 10; test++)
 	{
 		printf("**** data process test %d ****\n", test);
@@ -202,7 +226,7 @@ int main()
 	}
 
 	// fetch resultset
-	printf("***********************************\n");
+	printf("\n**** 6. FETCH RESULT ****\n");
 	{
 		int dataCount = maxDataCount;
 
@@ -228,7 +252,7 @@ int main()
 
 		printf("data query %d values took = %f ms\n", dataQueried, queryTimeMs);
 
-		for (int i = 0; i < query_count; i++) {
+		for (int i = 0; i < 100; i++) {
 			float* record = tsdb.h_resultset + i * (1 + dataSize * transactionSize);
 			printf("[%d] (%f, %f, %f, %f)\n", i, record[0], record[1], record[2], record[3]);
 		}
@@ -243,6 +267,8 @@ Error:
 		fprintf(stderr, "cudaDeviceReset failed!");
 		return 1;
 	}
+
+	printf("\n********************\n");
 
 	return 0;
 }
