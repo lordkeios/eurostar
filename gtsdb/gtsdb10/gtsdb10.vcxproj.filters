@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="websocket">
+      <UniqueIdentifier>{9fb974df-5d83-4ad3-929c-747a55457f6d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_handlers.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_http_session.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_server.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_session.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_shared_state.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\pch.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketServer.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketClient.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\ThreadPool.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\Server.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\message.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\resource_pool.hpp" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\System.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\TaskThread.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\types.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\gtsdb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_http_session.cpp">
+      <Filter>websocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_server.cpp">
+      <Filter>websocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_session.cpp">
+      <Filter>websocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_shared_state.cpp">
+      <Filter>websocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\pch.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketServer.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketClient.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\Server.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\System.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\gtsdb.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\main.cpp" />
+  </ItemGroup>
+</Project>

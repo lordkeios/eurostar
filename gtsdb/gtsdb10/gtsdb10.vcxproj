@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EC73B8AB-2C49-4D72-94A1-9E3A5AB4750B}</ProjectGuid>
-    <RootNamespace>gtsdb</RootNamespace>
+    <ProjectGuid>{385FDFE3-6FAF-4E73-B6F2-5B94574562D3}</ProjectGuid>
+    <RootNamespace>gtsdb10</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -31,7 +31,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.2.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -42,13 +42,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>d:\boost\beast@latest\;d:\boost\boost_1_70_0\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_70_0\lib64-msvc-14.1;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>d:\boost\beast@latest\;d:\boost\boost_1_70_0\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\boost\boost_1_70_0\lib64-msvc-14.1;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./csv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../websocket;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -66,6 +75,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;../websocket;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -82,10 +94,41 @@
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\gtsdb.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\main.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\Server.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\System.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketClient.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketServer.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_http_session.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_server.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_session.cpp" />
+    <ClCompile Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_shared_state.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\gtsdb.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\message.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\pch.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\resource_pool.hpp" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\Server.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\System.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\TaskThread.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\ThreadPool.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\types.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketClient.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\gtsdb10\WebSocketServer.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_handlers.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_http_session.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_server.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_session.h" />
+    <ClInclude Include="..\..\..\..\%40RND\eurostar\gtsdb\websocket\websocket_shared_state.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.2.targets" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.targets" />
   </ImportGroup>
 </Project>
